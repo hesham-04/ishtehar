@@ -1,5 +1,5 @@
 from django.views.generic import ListView, DetailView, CreateView
-from accounts.models import Post, User, Like
+from accounts.models import Post, User, Like, Comment
 from django.db.models import Count
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
@@ -20,6 +20,19 @@ def likeView(request, pk):
 
     return redirect('post_detail', pk=post.id)
 
+
+
+def commentView(request, pk):
+    post = get_object_or_404(Post, id=pk)
+    if not request.user.is_authenticated:
+        return redirect('login')  # Redirect to login if user is not authenticated
+
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        comment = Comment.objects.create(user=request.user, post=post, content=content)
+        comment.save()
+
+    return redirect('post_detail', pk=post.id)
 
 
 
@@ -73,8 +86,8 @@ class PostDetailView(DetailView):
         context['post'] = post
         context['is_liked'] = is_liked
         context['total_likes'] = Like.objects.filter(post=post).count()
+        context['comments'] = Comment.objects.filter(post=post)
         return context
-
 class DashboardView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'website/user_details.html'

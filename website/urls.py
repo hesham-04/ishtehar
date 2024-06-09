@@ -12,4 +12,5 @@ urlpatterns = [
     path('profile/<str:username>/', views.UserProfileView.as_view(), name='user_profile'),
     path('all_posts', views.AllPostsView.as_view(), name='all_posts'),
     path('liked/<int:pk>/', views.likeView, name='post_like'),
+    path('comment/<int:pk>/', views.commentView, name='post_comment', )
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
