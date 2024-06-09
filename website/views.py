@@ -5,6 +5,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.shortcuts import redirect
+from django.shortcuts import render
+from django.db.models import Q
 
 # Create your views here.
 
@@ -58,6 +60,33 @@ class HomeView(ListView):
         context['authors'] = User.objects.annotate(post_count=Count('post')).order_by('-post_count')[:5]
         
         return context
+
+
+
+
+
+
+def SearchView(request):
+    query = request.GET.get('query', '')
+    posts = []
+    
+    if query:
+        posts = Post.objects.filter(Q(title__icontains=query))
+
+    context = {
+        'query': query,
+        'posts': posts,
+    }
+    
+    return render(request, 'website/search-result.html', context)
+
+
+
+
+
+
+
+
 
 
 class CreatePostView(LoginRequiredMixin, CreateView):
