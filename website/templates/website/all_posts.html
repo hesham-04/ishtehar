@@ -1,0 +1,53 @@
+{% extends "website/base.html" %}
+{% load static %}
+
+{% block subtitle %} all posts {% endblock %}
+
+{% block content %}
+<section class="section-sm">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-8 mb-5 mb-lg-0">
+                <h2 class="h5 section-title">Recent Post</h2>
+                <div class="row">
+                    {% for post  in all_posts  %}
+                    <div class="col-lg-6 col-sm-6">
+                        <article class="card mb-4">
+                                <img src="{{ post.image.url }}" class="card-img-top" alt="post-thumb">
+                            <div class="card-body">
+                                <h3 class="h4 mb-3">
+                                    <a class="post-title" href={% url 'post_detail' post.id%}>{{post.title}}</a>
+                                </h3>
+                                <ul class="card-meta list-inline">
+                                    <li class="list-inline-item">
+                                        <a href={% url 'user_profile' post.author.username %} class="card-meta-author">
+                                            <img src="{{post.author.image.url}}" alt="John Doe">
+                                            <span>{{post.author.username}}</span>
+                                        </a>
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <i class="ti-timer"></i>7 Min To Read
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <i class="ti-calendar"></i>{{post.created_at|date:'d, Y M'}}
+                                    </li>
+                                    <li class="list-inline-item">
+                                        <ul class="card-meta-tag list-inline">
+                                            {% for tag in post.tags.all%}
+                                                <li class="list-inline-item"><a href="{% url 'waste' %}">{{tag.name}}</a></li>
+                                            {% endfor%}
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <p>{{ post.content|slice:":120" }}</p>
+                                <a href="{% url 'post_detail' post.id %}" class="btn btn-outline-primary">Read More</a>
+                            </div>
+                        </article>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

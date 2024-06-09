@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<!-- Add Font Awesome Icons library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1hM1djvytcFtzBHQw==#sha384-v8U2pIV7iMBr2mnc3c8QVM+RBfFhCy8eo8aZ9dUUD+Hb6A9IwdWszd2k0QgLUph8BQ" crossorigin="anonymous">
+{% load static %}
+<html lang="en-us"><head>
+  <meta charset="utf-8">
+ 
+  {% block title%}<title> ishtehar |  {% block subtitle%} subtitle{% endblock subtitle%}</title>{% endblock title%}
+
+
+  <!-- mobile responsive meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="This is meta description">
+  <meta name="author" content="Themefisher">
+  <meta name="generator" content="Hugo 0.74.3" />
+
+  <!-- plugins -->
+  
+  <link rel="stylesheet" href="{% static 'website/plugins/bootstrap/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'website/plugins/themify-icons/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'website/plugins/slick/slick.css' %}">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="{% static 'website/css/style.css' %}" media="screen">
+
+  <!--Favicon-->
+  <link rel="shortcut icon" href="{% static 'website/fimages/favicon.png' %}" type="image/x-icon">
+  <link rel="icon" href="{% static 'webiste/images/favicon.png' %}" type="image/x-icon">
+
+  <meta property="og:title" content="Reader | Hugo Personal Blog Template" />
+  <meta property="og:description" content="This is meta description" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="" />
+  <meta property="og:updated_time" content="2020-03-15T15:40:24+06:00" />
+</head>
+<body>
+  <!-- navigation -->
+  <header class="navigation fixed-top">
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-white">
+        <a class="navbar-brand order-1" href="{% url 'waste' %}">
+          <img class="img-fluid" width="100px" src="{% static 'website/fimages/logo.png' %}"
+            alt="Reader | Hugo Personal Blog Template">
+        </a>
+        <div class="collapse navbar-collapse text-center order-lg-2 order-3" id="navigation">
+          <ul class="navbar-nav mx-auto">
+            <li class="nav-item">
+                  <a class="nav-link" href="{% url 'waste' %}">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'create_post' %}">Create Post</a>
+        </li>
+  
+  
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'all_posts' %}">All Posts</a>
+            </li>
+  
+            <li class="nav-item d-flex align-items-center">
+              <form class="search-bar mr-2">
+                <input id="search-query" name="s" type="search" placeholder="Type &amp; Hit Enter...">
+              </form>
+            
+            <button class="navbar-toggler border-0 order-1" type="button" data-toggle="collapse" data-target="#navigation">
+              <i class="ti-menu"></i>
+            </button>
+          </li>
+            
+            
+            
+        </div>
+  
+        <div class="order-2 order-lg-3 d-flex align-items-center">
+          <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+              <li class="nav-item dropdown">
+                <a class="nav-link d-flex align-items-center" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+               <img src="{{ user.image.url }}" alt="User Profile Picture" class="rounded-circle mr-3" style="width: 2rem; height: 2rem; object-fit: cover;"> {{ user.username }} <i class="ti-angle-down ml-1"></i>
+                </a>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="{% url 'dashboard'  %}">
+                    <i class="fa fa-user mr-2"></i>
+                    Profile
+                  </a>
+              
+                  <a class="dropdown-item" >
+                    <form id="logout-form" method="POST" action="{% url 'accounts:logout' %}" style="display: inline;">
+                      {% csrf_token %}
+                      <button type="submit" class=" btn btn-link btn-danger" style="padding: 0; margin: 0; border: none; background: none;">
+                        <i class="fa fa-sign-out-alt mr-2"></i>Logout
+                      </button>
+                    </form>
+                  </a>
+                    
+                </div>
+              </li>
+            {% else %}
+
+              <li class="nav-item">
+                <div class="order-2 order-lg-3 d-flex align-items-center">
+
+                <i class="fa fa-user"></i><a class="nav-link" href="{% url 'accounts:login' %}">Login </a>
+                </div>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+  
+      </nav>
+    </div>
+  </header>
+<br><br>
+
+
+      {% block content %}
+
+      {% endblock content %}
+
+
+<br><br><br><br><br>
+<footer class="footer">
+    <svg class="footer-border" height="214" viewBox="0 0 2204 214" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2203 213C2136.58 157.994 1942.77 -33.1996 1633.1 53.0486C1414.13 114.038 1200.92 188.208 967.765 118.127C820.12 73.7483 263.977 -143.754 0.999958 158.899" stroke-width="2"/>
+    </svg>
+
+    <div class="container">
+        <div class="row align-items-center mb-4">
+            
+            <div class="col-md-4 text-center mb-10">
+                <a href="{% url 'waste' %}"><img class="img-fluid" width="100px" src="{% static 'website/fimages/logo.png' %}" alt="Blog Logo"></a>
+                <p>&copy; 2024 Your Blog Name. All rights reserved.</p>
+            </div>
+
+            <div class="col-md-4 text-center text-md-left mb-4">
+                <h4>Contact Us</h4>
+                <ul class="list-unstyled">
+                    <li>Email: <a href="mailto:hesham@gmail.com">hesham@gmail.com</a></li>
+                    <li>Phone: +123 456 7890</li>
+                    <li>Address: 123 Blog Street, Blog City, BC 12345</li>
+                    <li>Dev: PhoenixTLOS</li>
+                </ul>
+            </div>
+            
+            <div class="col-md-4 text-center text-md-left mb-4">
+                <h4>About Us</h4>
+                <p>Welcome to our blog, where we share the latest updates and insights on various topics. Stay tuned for engaging content and feel free to reach out to us!</p>
+            </div>
+        </div>
+
+        <div class="row align-items-center mb-4">
+            <div class="col-md-6 text-center text-md-left mb-4">
+                <ul class="list-inline footer-list mb-0">
+                    <li class="list-inline-item"><a href="{% url 'waste' %}">Privacy Policy</a></li>
+                    <li class="list-inline-item"><a href="{% url 'waste' %}">Terms & Conditions</a></li>
+                    <li class="list-inline-item"><a href="{% url 'waste' %}">About Us</a></li>
+                    <li class="list-inline-item"><a href="{% url 'waste' %}">Contact Us</a></li>
+                </ul>
+            </div>
+            <div class="col-md-6 text-md-right text-center mb-4">
+                <ul class="list-inline footer-list mb-0">
+                    <li class="list-inline-item"><a href="#"><i class="ti-facebook"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="ti-twitter-alt"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="ti-linkedin"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="ti-github"></i></a></li>
+                    <li class="list-inline-item"><a href="#"><i class="ti-youtube"></i></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <form class="form-inline justify-content-center mb-4">
+                    <input type="email" class="form-control mb-2 mr-sm-2" id="subscribeEmail" placeholder="Enter your email">
+                    <button type="submit" class="btn btn-primary mb-2">Subscribe</button>
+                </form>
+            </div>
+            <div class="col-12">
+                <div class="border-bottom border-default"></div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+  
+  
+    <!-- JS Plugins -->
+    <script src="{% static 'website/plugins/jQuery/jquery.min.js' %}"></script>
+  
+    <script src="{% static 'website/plugins/bootstrap/bootstrap.min.js' %}"></script>
+  
+    <script src="{% static 'website/plugins/slick/slick.min.js' %}"></script>
+  
+    <script src="{% static 'website/plugins/instafeed/instafeed.min.js' %}"></script>
+  
+    <!-- Main Script -->
+    <script src="{% static 'website/js/script.js' %}"></script>
+</body>
+
+</html>

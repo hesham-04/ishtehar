@@ -1,0 +1,44 @@
+{% extends "website/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block subtitle %} Login {% endblock subtitle %}
+
+{% block content %}
+
+<!-- Login Section -->
+<div class="container d-flex justify-content-center align-items-center" style="height: 100vh; background: url('{% static 'website/fimages/background.jpg' %}') no-repeat center center fixed; background-size: cover;">
+    <div class="row shadow-lg" style="max-width: 900px; width: 100%; border-radius: 15px; overflow: hidden; backdrop-filter: blur(10px);">
+        <!-- Left Column with Logo and Description -->
+        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center bg-light p-4">
+            <img src="{% static 'website/fimages/logo.png' %}" alt="Company Logo" class="img-fluid mb-4" style="max-width: 150px;">
+            <h3 class="mb-3">Welcome to Ishtehar</h3>
+            <p class="text-center">We provide the best services to help you achieve your goals. Join us today and be a part of our community.</p>
+        </div>
+        <!-- Right Column with Login Form -->
+        <div class="col-md-6 d-flex flex-column justify-content-center align-items-center p-4" style="background-color: rgba(255, 255, 255, 0.8);">
+            <div class="text-center mb-4">
+                <h2 class="card-title" style="font-size: 2em; font-weight: bold;">Login</h2>
+            </div>
+            <div class="text-center">
+                <form method="post" style="width: 100%; max-width: 400px;">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+                    <div class="mt-4">
+                        <button type="submit" class="btn btn-primary btn-block" style="transition: transform 0.2s; width: 100%;">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                    </div>
+                    <div class="mt-3">
+                        <span>Don't have an account? <a href="{% url 'accounts:register' %}" class="btn btn-outline-primary btn-block" style="transition: transform 0.2s; width: 100%;">Register</a></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add Font Awesome -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+{% endblock content %}

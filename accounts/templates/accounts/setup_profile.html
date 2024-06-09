@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+{% load crispy_forms_tags %}
+{% load static %}
+<html lang="en-us">
+<head>
+  <meta charset="utf-8">
+
+  {% block title %}
+  <title> ishtehar | {% block subtitle %} subtitle{% endblock subtitle %}</title>
+  {% endblock title %}
+
+  <!-- mobile responsive meta -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="This is meta description">
+  <meta name="author" content="Themefisher">
+  <meta name="generator" content="Hugo 0.74.3" />
+
+  <!-- plugins -->
+  <link rel="stylesheet" href="{% static 'website/plugins/bootstrap/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'website/plugins/themify-icons/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'website/plugins/slick/slick.css' %}">
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="{% static 'website/css/style.css' %}" media="screen">
+
+  <!--Favicon-->
+  <link rel="shortcut icon" href="{% static 'website/fimages/favicon.png' %}" type="image/x-icon">
+  <link rel="icon" href="{% static 'website/images/favicon.png' %}" type="image/x-icon">
+
+  <meta property="og:title" content="Reader | Hugo Personal Blog Template" />
+  <meta property="og:description" content="This is meta description" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="" />
+  <meta property="og:updated_time" content="2020-03-15T15:40:24+06:00" />
+</head>
+<body>
+  <!-- navigation -->
+  <header class="navigation fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-white justify-content-center">
+      <a class="navbar-brand" href="{% url 'waste' %}">
+        <img class="img-fluid mx-auto d-block" width="100px" src="{% static 'website/fimages/logo.png' %}" alt="Reader | Hugo Personal Blog Template">
+      </a>
+    </nav>
+  </header>
+
+  <!-- Ensure there is enough space below the fixed navbar -->
+  <div style="margin-top: 120px;"></div>
+
+  <!-- Register Section -->
+  <div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="row shadow-lg" style="max-width: 900px; width: 100%; border-radius: 15px; overflow: hidden;">
+      <!-- Left Column with Logo and Description -->
+      <div class="col-md-6 d-flex flex-column justify-content-center align-items-center bg-light p-4">
+        <img src="{% static 'website/fimages/logo.png' %}" alt="Company Logo" class="img-fluid mb-4" style="max-width: 150px;">
+        <h3 class="mb-3">Welcome to ishtehar</h3>
+        <p class="text-center">We provide the best services to help you achieve your goals. Join us today and be a part of our community.</p>
+      </div>
+      <!-- Right Column with Register Form -->
+      <div class="col-md-6 d-flex flex-column justify-content-center align-items-center p-4">
+        <div class="text-center mb-4">
+          <h2 class="card-title" style="font-size: 2em; font-weight: bold;">Register</h2>
+        </div>
+        <div class="text-center">
+          <form method="post" enctype="multipart/form-data" style="width: 100%; max-width: 400px;">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <div class="mt-4">
+              <button type="submit" class="btn btn-primary btn-block">Register</button>
+            </div>
+            <div class="mt-3">
+              <span>Don't have an account? <a href="{% url 'accounts:login' %}" class="btn btn-outline-primary btn-block">Login</a></span>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <br><br><br><br><br>
+  <footer class="footer">
+    <svg class="footer-border" height="214" viewBox="0 0 2204 214" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M2203 213C2136.58 157.994 1942.77 -33.1996 1633.1 53.0486C1414.13 114.038 1200.92 188.208 967.765 118.127C820.12 73.7483 263.977 -143.754 0.999958 158.899" stroke-width="2"/>
+    </svg>
+
+    <div class="container">
+      <div class="row align-items-center mb-4">
+        <div class="col-md-4 text-center mb-10">
+          <a href="{% url 'waste' %}"><img class="img-fluid" width="100px" src="{% static 'website/fimages/logo.png' %}" alt="Blog Logo"></a>
+          <p>&copy; 2024 Your Blog Name. All rights reserved.</p>
+        </div>
+
+        <div class="col-md-4 text-center text-md-left mb-4">
+          <h4>Contact Us</h4>
+          <ul class="list-unstyled">
+            <li>Email: <a href="mailto:hesham@gmail.com">hesham@gmail.com</a></li>
+            <li>Phone: +123 456 7890</li>
+            <li>Address: 123 Blog Street, Blog City, BC 12345</li>
+            <li>Dev: PhoenixTLOS</li>
+          </ul>
+        </div>
+
+        <div class="col-md-4 text-center text-md-left mb-4">
+          <h4>About Us</h4>
+          <p>Welcome to our blog, where we share the latest updates and insights on various topics. Stay tuned for engaging content and feel free to reach out to us!</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
