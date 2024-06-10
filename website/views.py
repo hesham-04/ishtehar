@@ -27,7 +27,7 @@ def likeView(request, pk):
 def commentView(request, pk):
     post = get_object_or_404(Post, id=pk)
     if not request.user.is_authenticated:
-        return redirect('login')  # Redirect to login if user is not authenticated
+        return redirect('accounts:login')  # Redirect to login if user is not authenticated
 
     if request.method == 'POST':
         content = request.POST.get('content')
@@ -50,14 +50,19 @@ class HomeView(ListView):
         context = super().get_context_data(**kwargs)
         # Most liked post
         context['most_liked_post'] = Post.objects.annotate(like_count=Count('like')).filter(like_count__gt=0).order_by('-like_count').first()
+
         # Trending post (assuming you have a way to determine popularity, e.g., by number of likes and comments combined)
         context['trending_post'] = Post.objects.annotate(like_count=Count('like'), comment_count=Count('comment')).order_by('-like_count', '-comment_count').first()
+
         # Most popular posts (assuming you have a way to determine popularity, e.g., by number of likes)
         context['most_popular_posts'] = Post.objects.annotate(like_count=Count('like')).order_by('-like_count')[:3]
+
         # Recent posts
         context['recent_posts'] = Post.objects.order_by('-created_at')[:5]
+
         # List of authors
         context['authors'] = User.objects.annotate(post_count=Count('post')).order_by('-post_count')[:5]
+
         
         return context
 
@@ -117,6 +122,9 @@ class PostDetailView(DetailView):
         context['total_likes'] = Like.objects.filter(post=post).count()
         context['comments'] = Comment.objects.filter(post=post)
         return context
+    
+
+    
 class DashboardView(LoginRequiredMixin, DetailView):
     model = User
     template_name = 'website/user_details.html'
